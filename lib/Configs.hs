@@ -60,18 +60,18 @@ myWorkspaces    = ["1: Browser","2: Emacs","3: Terminal","4: Music","5: Files","
 
 myFullscreenHooks = [ composeOne [ isFullscreen -?> doFullFloat  ], resource =? "synapse" --> doIgnore ]
 
-myPlacement = withGaps (16,0,16,0) (smart (0.5,0.5))
+myPlacement = withGaps (0,0,0,0) (smart (0.5,0.5))
 
 myManagementHooks = composeAll . concat $
-    [ [ className   =? c --> doFloat           | c <- myFloats]
-    , [ title       =? t --> doFloat           | t <- myOtherFloats]
-    , [ className   =? c --> doF (W.shift "1") | c <- webApps]
-    , [ className   =? c --> doF (W.shift "2") | c <- emacs]
+    [ [ className   =? c --> doFloat                    | c <- myFloats]
+    , [ title       =? t --> doFloat                    | t <- myOtherFloats]
+    , [ className   =? c --> doF (W.shift "1: Browser") | c <- webApps]
+    , [ className   =? c --> doF (W.shift "2: Emacs")   | c <- emacs]
     ]
   where myFloats      = ["MPlayer", "Gimp", "chrome-app-list"]
         myOtherFloats = ["alsamixer", "chrome-app-list", "cappl", "htop"]
         webApps       = ["google-chrome-unstable"] -- open on desktop 2
-        emacs         = ["emacs"]                  -- open on desktop 3
+        emacs         = ["Emacs"]                  -- open on desktop 3
 
 myLayout = tiled ||| stiled ||| Mirror tiled ||| Tab.simpleTabbed
  where
