@@ -1,3 +1,5 @@
+module Main where
+ 
 import XMonad
 import XMonad.Hooks.ManageDocks
 import XMonad.Layout.NoBorders(smartBorders)
@@ -10,6 +12,7 @@ import System.Posix.Unistd
 import Keys
 import Configs
 import Startup
+import Layouts
 
 main = do
   hostname <- fmap nodeName getSystemID

@@ -16,18 +16,16 @@ myStartup = do
   spawnOnce "xscreensaver -no-splash &"
   spawnOnce "conky -c ~/.conky/sideconky &"
   spawnOnce "watch -n 120 ~/.myscripts/batteryNotifier.sh &"
-  spawnOnce "emacs --daemon &"
   spawnOnce "~/.myscripts/blueoff &"
   spawnOnce "synapse -s"
-  spawn "feh --bg-fill ~/Wallpapers/4.jpg &"
-  spawn "feh --bf-fill ~/Wallpapers/asscreed.jpg &"
+  spawnOnce "emacs --daemon&"
+  spawn "feh --bg-fill ~/Wallpapers/hack.jpg &"
   spawn "xrdb -merge ~/.Xresources &"
   spawn "pcmanfm --desktop &"
-  spawnToWorkspace "emc" "2: Emacs"
-  spawnToWorkspace "google-chrome-unstable" "1: Browser"
-  spawnToWorkspace "urxvt" "3: Terminal"
+  spawnToWorkspace "google-chrome-unstable&" "1: Browser"
+  spawnToWorkspace "~/n1&" "Mail"
 
 spawnToWorkspace :: String -> String -> X ()
 spawnToWorkspace program workspace = do
-                                      spawn program     
+                                      spawnOnce program     
                                       windows $ W.greedyView workspace

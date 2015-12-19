@@ -1,20 +1,11 @@
 module Keys where
 
-import Data.List
 import System.Exit
 import XMonad
 import XMonad.Actions.CycleWS
-import XMonad.Layout.MultiToggle
-import XMonad.Layout.MultiToggle.Instances
-import XMonad.Layout.WindowNavigation
 import XMonad.Prompt
 import XMonad.Prompt.Shell
 import XMonad.Hooks.Place
-import XMonad.Util.EZConfig
-import XMonad.Util.NamedScratchpad
-import XMonad.Util.Run
-import XMonad.Util.Scratchpad
-import XMonad.Util.XSelection
 import Graphics.X11.ExtraTypes.XF86
 import XMonad.Prompt.Window
 

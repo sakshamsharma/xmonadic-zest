@@ -1,31 +1,18 @@
 module Configs where
 
-import XMonad
-import XMonad.Layout.Spacing
-import XMonad.Layout.NoBorders(smartBorders)
-import qualified XMonad.Layout.Tabbed as Tab
-import System.IO
-import Data.Monoid
-import Data.Maybe
-import System.Exit
-import XMonad.Util.Scratchpad
-import XMonad.Util.NamedScratchpad
-import XMonad.Actions.Submap
-import XMonad.Hooks.Place
-import XMonad.Hooks.ManageHelpers
-
-import XMonad.Prompt
-import XMonad.Prompt.Input
-
+import           XMonad
+import           XMonad.Layout.PerWorkspace
+import           XMonad.Hooks.Place
+import           XMonad.Hooks.ManageHelpers
+import           XMonad.Prompt
+import           XMonad.Prompt.Input
 import qualified XMonad.StackSet as W
-import qualified Data.Map        as M
 
-scratchpads =
-  [
-    NS "htop" "urxvt -e htop" (title =? "htop") (customFloating $ W.RationalRect 0 0 1 (5/12))  -- <F4>
-  , NS "gvim" "gvim" (className =? "Gvim") (customFloating $ W.RationalRect 0 0 0 0)    -- <F5>
-  ]
+import           Data.Maybe
+import           System.Exit
+import qualified Data.Map as M
 
+import           Layouts
 
 -- special command prompt
 commandPrompt :: XPConfig -> String -> M.Map String (X ()) -> X ()
@@ -56,7 +43,7 @@ fireSPConfig = defaultXPConfig
     autoComplete        = Nothing
   }
 
-myWorkspaces    = ["1: Browser","2: Emacs","3: Terminal","4: Music","5: Files","6: Video","7","8","9"]
+myWorkspaces    = ["1: Browser","2: Emacs","3: Terminal","4: Music","5: Files","6: Video","7","8","9", "IM", "Mail"]
 
 myFullscreenHooks = [ composeOne [ isFullscreen -?> doFullFloat  ], resource =? "synapse" --> doIgnore ]
 
@@ -66,25 +53,20 @@ myManagementHooks = composeAll . concat $
     [ [ className   =? c --> doFloat                    | c <- myFloats]
     , [ title       =? t --> doFloat                    | t <- myOtherFloats]
     , [ className   =? c --> doF (W.shift "1: Browser") | c <- webApps]
-    , [ className   =? c --> doF (W.shift "2: Emacs")   | c <- emacs]
+    , [ className   =? c --> doF (W.shift "2: Emacs")   | c <- ["Emacs"]]
+    , [ className   =? c --> doF (W.shift "4: Music")   | c <- ["Rhythmbox"] ]
+    , [ className   =? c --> doF (W.shift "Mail"    )   | c <- ["Nylas N1"] ]
+    , [ className   =? c --> doF (W.shift "IM"    )     | c <- imApps ]
     ]
-  where myFloats      = ["MPlayer", "Gimp", "chrome-app-list"]
+  where myFloats      = ["MPlayer", "Gimp", "chrome-app-list", "Synapse"]
         myOtherFloats = ["alsamixer", "chrome-app-list", "cappl", "htop"]
-        webApps       = ["google-chrome-unstable"] -- open on desktop 2
-        emacs         = ["Emacs"]                  -- open on desktop 3
+        webApps       = ["google-chrome-unstable", "firefox"] -- open on desktop 2
+        imApps        = ["Skype", "Pidgin"]
 
-myLayout = tiled ||| stiled ||| Mirror tiled ||| Tab.simpleTabbed
- where
-  -- default tiling algorithm partitions the screen into two panes
-  tiled = Tall nmaster1 delta ratio
-
-  stiled = spacing 5 $ Tall nmaster2 delta ratio
-
-  nmaster1 = 1  -- The default number of windows in the master pane
-  nmaster2 = 2  -- Same
-  ratio = 1/2   -- Default proportion of screen occupied by master pane
-  delta = 5/100 -- Percent of screen to increment by when resizing panes
-
+-- These layouts are stored in the Custom.Layouts module
+myLayoutHook = im normal where
+    normal   = myLayout
+    im       = onWorkspace "im" imLayout
 
 -- color definitions
 myNormalBorderColor  = "#dddddd"
