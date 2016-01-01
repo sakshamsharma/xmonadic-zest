@@ -17,13 +17,13 @@ myStartup = do
   spawnOnce "conky -c ~/.conky/sideconky &"
   spawnOnce "watch -n 120 ~/.myscripts/batteryNotifier.sh &"
   spawnOnce "~/.myscripts/blueoff &"
-  spawnOnce "synapse -s"
+  spawnOnce "synapse -s &"
   spawnOnce "emacs --daemon&"
   spawn "feh --bg-fill ~/Wallpapers/hack.jpg &"
   spawn "xrdb -merge ~/.Xresources &"
   spawn "pcmanfm --desktop &"
-  spawnToWorkspace "google-chrome-unstable&" "1: Browser"
   spawnToWorkspace "~/n1&" "Mail"
+  spawnToWorkspace "google-chrome-unstable&" "1: Browser"
 
 spawnToWorkspace :: String -> String -> X ()
 spawnToWorkspace program workspace = do
