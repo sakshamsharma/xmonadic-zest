@@ -25,5 +25,5 @@ main = do
   , normalBorderColor  = myNormalBorderColor
   , focusedBorderColor = myFocusedBorderColor
   , modMask = mod4Mask
-  , terminal = "urxvt"
+  , terminal = "urxvtc"
   }
