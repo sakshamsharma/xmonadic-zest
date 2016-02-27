@@ -8,6 +8,7 @@ import XMonad.Prompt.Shell
 import XMonad.Hooks.Place
 import Graphics.X11.ExtraTypes.XF86
 import XMonad.Prompt.Window
+import XMonad.Actions.WindowBringer
 
 import qualified Data.Map        as M
 import qualified XMonad.StackSet as W
@@ -23,13 +24,14 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     ((modm,               xK_d     ), spawn "dmenu_run")                                      -- launch dmenu
   , ((modm,               xK_F4    ), spawn "urxvt -e alsamixer")
   , ((modm,               xK_F5    ), spawn "urxvt --hold -e htop")
-  , ((modm .|. shiftMask, xK_d     ), spawn "cappl")                                          -- launch gmrun (better dmenu)
   , ((modm, xK_w), placeFocused simpleSmart)
   , ((modm,               xK_Return), spawn $ XMonad.terminal conf)                           -- launch terminal
   , ((modm,               xK_F1    ), spawn "google-chrome-unstable")                         -- launch chrome
   , ((mod1Mask,           xK_Return), spawn "emc")
   , ((modm,               xK_F3    ), spawn "pcmanfm")                                        -- launch file manager
   , ((modm              , xK_F11   ), prompt ("urxvt" ++ " -e") greenXPConfig)                -- run any command (gmrun with completion)
+  , ((modm .|. shiftMask, xK_d     ), gotoMenu)
+  , ((modm .|. shiftMask, xK_b     ), bringMenu)
 
 -- | Media keys
   , ((mod1Mask          , xK_3     ),  spawn "amixer -q set Master 5%-")
