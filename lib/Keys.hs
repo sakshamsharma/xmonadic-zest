@@ -3,12 +3,14 @@ module Keys where
 import System.Exit
 import XMonad
 import XMonad.Actions.CycleWS
-import XMonad.Prompt
 import XMonad.Prompt.Shell
 import XMonad.Hooks.Place
 import Graphics.X11.ExtraTypes.XF86
 import XMonad.Prompt.Window
 import XMonad.Actions.WindowBringer
+import XMonad.Prompt
+import XMonad.Prompt.AppLauncher as AL
+import XMonad.Util.Scratchpad
 
 import qualified Data.Map        as M
 import qualified XMonad.StackSet as W
@@ -29,9 +31,12 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
   , ((modm,               xK_F1    ), spawn "google-chrome-unstable")                         -- launch chrome
   , ((mod1Mask,           xK_Return), spawn "emc")
   , ((modm,               xK_F3    ), spawn "pcmanfm")                                        -- launch file manager
-  , ((modm              , xK_F11   ), prompt ("urxvt" ++ " -e") greenXPConfig)                -- run any command (gmrun with completion)
-  , ((modm .|. shiftMask, xK_d     ), gotoMenu)
+  , ((modm,               xK_F11   ), prompt ("urxvt" ++ " -e") greenXPConfig)                -- run any command (gmrun with completion)
+  , ((mod1Mask,           xK_space ), gotoMenu)
   , ((modm .|. shiftMask, xK_b     ), bringMenu)
+  , ((modm,               xK_g     ), AL.launchApp defaultXPConfig "evince" )
+
+  , ((modm,               xK_s     ), scratchpadSpawnActionTerminal $ XMonad.terminal conf)
 
 -- | Media keys
   , ((mod1Mask          , xK_3     ),  spawn "amixer -q set Master 5%-")
@@ -42,7 +47,6 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
   , ((0,   xF86XK_MonBrightnessDown),  spawn "xbacklight -steps 1 -time 0 -dec 6")
 
 -- | Workspace shortcuts
-  , ((modm     , xK_f), moveTo Next EmptyWS)  -- find a free workspace
   , ((mod1Mask,           xK_Down),  nextWS)  -- alt+down moves to next workspace
   , ((mod1Mask,           xK_Up),    prevWS)  -- alt+up moves to prev workspace
 
@@ -50,15 +54,12 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
   , ((modm .|. shiftMask, xK_e     ), io    exitSuccess)
   , ((modm .|. shiftMask, xK_r     ), spawn "xmonad --recompile; xmonad --restart")
   , ((modm .|. shiftMask, xK_l     ), spawn "xscreensaver-command -lock")
-  , ((modm .|. shiftMask, xK_s     ), spawn "xscreensaver-command -lock && sleep 2 && systemctl suspend -i")
   , ((modm              , xK_F12   ), commandPrompt fireSPConfig "command" commands)
-  , ((mod1Mask          , xK_space ), windowPromptGoto defaultXPConfig { autoComplete = Just 500000 })
   , ((modm .|. shiftMask, xK_q     ), kill)
 
 -- | Layout shortcuts
   , ((modm,               xK_space ), sendMessage NextLayout)             -- Rotate through the available layout algorithms
   , ((modm .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf) -- Reset the layouts on the current workspace to default
-  , ((modm,               xK_n     ), refresh)                            -- Resize viewed windows to the correct size
 
   -- Move focus to the next window
   , ((modm,               xK_Tab   ), windows W.focusDown)
