@@ -24,6 +24,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
   [
 -- | App launchers
     ((modm,               xK_d     ), spawn "dmenu_run")                                      -- launch dmenu
+  , ((modm,               xK_F2    ), spawn "urxvt -e nmtui")
   , ((modm,               xK_F4    ), spawn "urxvt -e alsamixer")
   , ((modm,               xK_F5    ), spawn "urxvt --hold -e htop")
   , ((modm, xK_w), placeFocused simpleSmart)

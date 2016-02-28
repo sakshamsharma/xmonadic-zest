@@ -30,7 +30,7 @@ commands = M.fromList
   ]
 
 -- shellprompt config
-fireSPConfig = def
+fireSPConfig = defaultXPConfig
   { bgColor             = colorFocusBG,
     fgColor             = colorNormalFG,
     bgHLight            = colorNormalBG,
@@ -60,7 +60,7 @@ myManagementHooks = composeAll . concat $
     , [ className   =? c --> doF (W.shift "IM"    )     | c <- imApps ]
     ]
   where myFloats      = ["MPlayer", "Gimp", "chrome-app-list", "Synapse"]
-        myOtherFloats = ["alsamixer", "chrome-app-list", "cappl", "htop"]
+        myOtherFloats = ["alsamixer", "chrome-app-list", "cappl", "htop", "nmtui"]
         webApps       = ["google-chrome-unstable", "firefox"] -- open on desktop 2
         imApps        = ["Skype", "Pidgin"]
 
