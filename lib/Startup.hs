@@ -11,19 +11,18 @@ myStartup = do
   ewmhDesktopsStartup
   setDefaultCursor xC_left_ptr
   spawnOnce "~/.cache/taffybar/taffybar-linux-x86_64 &"
+  spawnToWorkspace "google-chrome-unstable&" "1: Browser"
+  spawnOnce "emacs --daemon&"
   spawnOnce "nm-applet &"
   spawnOnce "pasystray &"
   spawnOnce "xscreensaver -no-splash &"
   spawnOnce "conky -c ~/.conky/sideconky &"
   spawnOnce "watch -n 120 ~/.myscripts/batteryNotifier.sh &"
   spawnOnce "~/.myscripts/blueoff &"
-  spawnOnce "synapse -s &"
-  spawnOnce "emacs --daemon&"
   spawn "feh --bg-fill ~/Wallpapers/hack.jpg &"
   spawn "xrdb -merge ~/.Xresources &"
   spawn "pcmanfm --desktop &"
-  spawnToWorkspace "~/n1&" "Mail"
-  spawnToWorkspace "google-chrome-unstable&" "1: Browser"
+  spawnToWorkspace "thunderbird-bin&" "Mail"
 
 spawnToWorkspace :: String -> String -> X ()
 spawnToWorkspace program workspace = do

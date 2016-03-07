@@ -56,7 +56,7 @@ myManagementHooks = composeAll . concat $
     , [ className   =? c --> doF (W.shift "1: Browser") | c <- webApps]
     , [ className   =? c --> doF (W.shift "2: Emacs")   | c <- ["Emacs"]]
     , [ className   =? c --> doF (W.shift "4: Music")   | c <- ["Rhythmbox"] ]
-    , [ className   =? c --> doF (W.shift "Mail"    )   | c <- ["Nylas N1"] ]
+    , [ className   =? c --> doF (W.shift "Mail"    )   | c <- ["Thunderbird"] ]
     , [ className   =? c --> doF (W.shift "IM"    )     | c <- imApps ]
     ]
   where myFloats      = ["MPlayer", "Gimp", "chrome-app-list", "Synapse"]

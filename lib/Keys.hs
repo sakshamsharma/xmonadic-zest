@@ -23,7 +23,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
   [
 -- | App launchers
-    ((modm,               xK_d     ), spawn "dmenu_run")                                      -- launch dmenu
+    ((modm,               xK_d     ), spawn "rofi -show run")                                      -- launch dmenu
   , ((modm,               xK_F2    ), spawn "urxvt -e nmtui")
   , ((modm,               xK_F4    ), spawn "urxvt -e alsamixer")
   , ((modm,               xK_F5    ), spawn "urxvt --hold -e htop")
@@ -33,6 +33,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
   , ((mod1Mask,           xK_Return), spawn "emc")
   , ((modm,               xK_F3    ), spawn "pcmanfm")                                        -- launch file manager
   , ((modm,               xK_F11   ), prompt ("urxvt" ++ " -e") greenXPConfig)                -- run any command (gmrun with completion)
+  , ((0,                  xK_F11   ), spawn "rofi -show ssh")
   , ((mod1Mask,           xK_space ), gotoMenu)
   , ((modm .|. shiftMask, xK_b     ), bringMenu)
   , ((modm,               xK_g     ), AL.launchApp defaultXPConfig "evince" )
@@ -63,7 +64,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
   , ((modm .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf) -- Reset the layouts on the current workspace to default
 
   -- Move focus to the next window
-  , ((modm,               xK_Tab   ), windows W.focusDown)
+  , ((modm,               xK_Tab   ), spawn "rofi -show window")
   , ((modm,               xK_j     ), windows W.focusDown)
   , ((modm,               xK_Right ), windows W.focusDown)
 
