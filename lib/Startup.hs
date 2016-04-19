@@ -11,7 +11,7 @@ myStartup = do
   ewmhDesktopsStartup
   setDefaultCursor xC_left_ptr
   spawnOnce "~/.cache/taffybar/taffybar-linux-x86_64 &"
-  spawnToWorkspace "google-chrome-unstable&" "1: Browser"
+  spawnToWorkspace "google-chrome-beta&" "1: Browser"
   spawnOnce "emacs --daemon&"
   spawnOnce "nm-applet &"
   spawnOnce "pasystray &"

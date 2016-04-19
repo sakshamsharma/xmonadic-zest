@@ -19,7 +19,7 @@ import Configs
 
 -- | Key bindings. Add, modify or remove key bindings here.
 myKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
-myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
+myKeys conf@ XConfig {XMonad.modMask = modm} = M.fromList $
 
   [
 -- | App launchers
@@ -29,14 +29,14 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
   , ((modm,               xK_F5    ), spawn "urxvt --hold -e htop")
   , ((modm, xK_w), placeFocused simpleSmart)
   , ((modm,               xK_Return), spawn $ XMonad.terminal conf)                           -- launch terminal
-  , ((modm,               xK_F1    ), spawn "google-chrome-unstable")                         -- launch chrome
+  , ((modm,               xK_F1    ), spawn "google-chrome-beta")                             -- launch chrome
   , ((mod1Mask,           xK_Return), spawn "emc")
   , ((modm,               xK_F3    ), spawn "pcmanfm")                                        -- launch file manager
   , ((modm,               xK_F11   ), prompt ("urxvt" ++ " -e") greenXPConfig)                -- run any command (gmrun with completion)
   , ((0,                  xK_F11   ), spawn "rofi -show ssh")
   , ((mod1Mask,           xK_space ), gotoMenu)
   , ((modm .|. shiftMask, xK_b     ), bringMenu)
-  , ((modm,               xK_g     ), AL.launchApp defaultXPConfig "evince" )
+  , ((modm,               xK_g     ), AL.launchApp def "evince" )
 
   , ((modm,               xK_s     ), scratchpadSpawnActionTerminal $ XMonad.terminal conf)
 
@@ -124,7 +124,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
 -- | Mouse bindings: default actions bound to mouse events
 mouseBindings :: XConfig Layout -> M.Map (KeyMask, Button) (Window -> X ())
-mouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList
+mouseBindings XConfig {XMonad.modMask = modMask} = M.fromList
     -- mod-button1 %! Set the window to floating mode and move by dragging
     [ ((modMask, button1), \w -> focus w >> mouseMoveWindow w
                                           >> windows W.shiftMaster)

@@ -30,7 +30,7 @@ commands = M.fromList
   ]
 
 -- shellprompt config
-fireSPConfig = defaultXPConfig
+fireSPConfig = def
   { bgColor             = colorFocusBG,
     fgColor             = colorNormalFG,
     bgHLight            = colorNormalBG,
@@ -44,7 +44,7 @@ fireSPConfig = defaultXPConfig
     autoComplete        = Nothing
   }
 
-myWorkspaces    = ["1: Browser","2: Emacs","3: Terminal","4: Music","5: Files","6: Video","7","8","9", "IM", "Mail"]
+myWorkspaces    = ["1: Browser","2: Editor","3: Terminal","4: Music","5: Files","6: Video","7","8","9", "IM", "Mail"]
 
 myFullscreenHooks = [ composeOne [ isFullscreen -?> doFullFloat  ], resource =? "synapse" --> doIgnore ]
 
