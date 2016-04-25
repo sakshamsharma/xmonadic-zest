@@ -33,9 +33,7 @@ myLogHook h = dynamicLogWithPP ( def {
 --  , ppOrder       =  \(ws:l:t:x) -> x ++ [l, ws, t]
   , ppOrder       =  \(ws:l:t:x) -> [l, ws, "  " , t] ++ x
   , ppOutput      =   hPutStrLn h
-  , ppExtras      =  [myLoadFormat loadAvg, myBatteryFormat battery, date "%a %b %d %H:%M        "]
+  , ppExtras      =  [myLoadFormat loadAvg, myBatteryFormat battery, date "%a %b %d %H:%M "]
   })
 
 myXmonadlemonbar = "/usr/bin/lemonbar -d -p -f \"Source Code Pro For Powerline:size=12\" -F \"#2199ee\" -f \"monofur for Powerline:size=11\" -B \"#000000\" -u 4 -U \"#00ff00\" > /dev/null "
-
-myXmonadTrayer = "trayer --edge top --width 3 --align right --transparent true --SetDockType true --alpha 256&"

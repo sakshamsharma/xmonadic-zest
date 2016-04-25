@@ -18,7 +18,6 @@ import Lemonbar
 main :: IO()
 main = do
   lemonbar <- spawnPipe myXmonadlemonbar
-  _ <- spawnPipe myXmonadTrayer
   xmonad $ ewmh $ pagerHints $ def {
     manageHook = placeHook myPlacement <+> manageDocks <+> manageHook def <+> myManagementHooks <+> composeAll myFullscreenHooks <+> manageScratchPad
   , layoutHook = avoidStruts $ smartBorders myLayout

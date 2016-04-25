@@ -10,7 +10,7 @@ myStartup :: X ()
 myStartup = do
   ewmhDesktopsStartup
   setDefaultCursor xC_left_ptr
-  {-spawnOnce "~/.cache/taffybar/taffybar-linux-x86_64 &"-}
+  spawnOnce "~/.cache/taffybar/taffybar-linux-x86_64 &"
   spawnToWorkspace "google-chrome-beta&" "1: Browser"
   spawnOnce "emacs --daemon&"
   spawnOnce "nm-applet &"
