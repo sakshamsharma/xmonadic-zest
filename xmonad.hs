@@ -3,23 +3,23 @@ module Main where
 import XMonad
 import XMonad.Hooks.ManageDocks
 import XMonad.Layout.NoBorders(smartBorders)
-import XMonad.Util.Run(spawnPipe)
+import XMonad.Util.NamedScratchpad
+import XMonad.ManageHook
 
 import XMonad.Hooks.Place
 import XMonad.Hooks.EwmhDesktops        (ewmh)
 import System.Taffybar.Hooks.PagerHints (pagerHints)
+import System.Posix.Unistd
 
 import Keys
 import Configs
 import Startup
 import Layouts
-import Lemonbar
 
-main :: IO()
 main = do
-  lemonbar <- spawnPipe myXmonadlemonbar
-  xmonad $ ewmh $ pagerHints $ def {
-    manageHook = placeHook myPlacement <+> manageDocks <+> manageHook def <+> myManagementHooks <+> composeAll myFullscreenHooks <+> manageScratchPad
+  hostname <- fmap nodeName getSystemID
+  xmonad $ ewmh $ pagerHints $ defaultConfig {
+    manageHook = placeHook myPlacement <+> manageDocks <+> manageHook defaultConfig <+> myManagementHooks <+> composeAll myFullscreenHooks <+> manageScratchPad
   , layoutHook = avoidStruts $ smartBorders myLayout
   , keys               = myKeys
   , workspaces         = myWorkspaces
@@ -28,5 +28,4 @@ main = do
   , focusedBorderColor = myFocusedBorderColor
   , modMask = mod4Mask
   , terminal = "urxvtc"
-  , logHook = myLogHook lemonbar
   }
