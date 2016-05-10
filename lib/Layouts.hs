@@ -14,12 +14,12 @@ import           XMonad.Util.WindowProperties
 import           Control.Monad
 import           Data.Ratio
 
-myLayout = tiled ||| stiled ||| Mirror tiled ||| Tab.simpleTabbed
+myLayout = stiled ||| tiled ||| Mirror tiled ||| Tab.simpleTabbed
  where
   -- default tiling algorithm partitions the screen into two panes
   tiled = Tall nmaster1 delta ratio
 
-  stiled = spacing 5 $ Tall nmaster2 delta ratio
+  stiled = spacing 5 $ Tall nmaster1 delta ratio
 
   nmaster1 = 1  -- The default number of windows in the master pane
   nmaster2 = 2  -- Same
