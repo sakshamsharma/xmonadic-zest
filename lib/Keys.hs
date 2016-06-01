@@ -29,7 +29,7 @@ myKeys conf@ XConfig {XMonad.modMask = modm} = M.fromList $
   , ((modm,               xK_F5    ), spawn "urxvt --hold -e htop")
   , ((modm, xK_w), placeFocused simpleSmart)
   , ((modm,               xK_Return), spawn $ XMonad.terminal conf)                           -- launch terminal
-  , ((modm,               xK_F1    ), spawn "google-chrome-beta")                             -- launch chrome
+  , ((modm,               xK_F1    ), spawn myBrowser)
   , ((mod1Mask,           xK_Return), spawn "emc")
   , ((modm,               xK_F3    ), spawn "pcmanfm")                                        -- launch file manager
   , ((modm,               xK_F11   ), prompt ("urxvt" ++ " -e") greenXPConfig)                -- run any command (gmrun with completion)

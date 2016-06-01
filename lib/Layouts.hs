@@ -22,7 +22,6 @@ myLayout = stiled ||| tiled ||| Mirror tiled ||| Tab.simpleTabbed
   stiled = spacing 5 $ Tall nmaster1 delta ratio
 
   nmaster1 = 1  -- The default number of windows in the master pane
-  nmaster2 = 2  -- Same
   ratio = 1/2   -- Default proportion of screen occupied by master pane
   delta = 5/100 -- Percent of screen to increment by when resizing panes
 

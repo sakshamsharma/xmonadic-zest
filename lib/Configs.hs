@@ -15,6 +15,13 @@ import qualified Data.Map as M
 
 import           Layouts
 
+-- Global for browser
+myBrowser :: String
+myBrowser = "google-chrome-beta"
+
+myMailClient :: String
+myMailClient = "thunderbird-bin"
+
 -- special command prompt
 commandPrompt :: XPConfig -> String -> M.Map String (X ()) -> X ()
 commandPrompt c p m = inputPromptWithCompl c p (mkComplFunFromList (M.keys m)) ?+ (\k -> fromMaybe (return ()) (M.lookup k m))
@@ -44,6 +51,7 @@ fireSPConfig = def
     autoComplete        = Nothing
   }
 
+myWorkspaces :: [String]
 myWorkspaces    = ["1: Browser","2: Editor","3: Terminal","4: Music","5: Files","6: Video","7","8","9", "IM", "Mail"]
 
 myFullscreenHooks = [ composeOne [ isFullscreen -?> doFullFloat  ], resource =? "synapse" --> doIgnore ]
@@ -53,7 +61,7 @@ myPlacement = withGaps (0,0,0,0) (smart (0.5,0.5))
 myManagementHooks = composeAll . concat $
     [ [ className   =? c --> doFloat                    | c <- myFloats]
     , [ title       =? t --> doFloat                    | t <- myOtherFloats]
-    , [ className   =? c --> doF (W.shift "1: Browser") | c <- webApps]
+    , [ className   =? c --> doF (W.shift "1: Browser") | c <- [myBrowser]]
     , [ className   =? c --> doF (W.shift "2: Emacs")   | c <- ["Emacs"]]
     , [ className   =? c --> doF (W.shift "4: Music")   | c <- ["Rhythmbox"] ]
     , [ className   =? c --> doF (W.shift "Mail"    )   | c <- ["Thunderbird"] ]
@@ -61,7 +69,6 @@ myManagementHooks = composeAll . concat $
     ]
   where myFloats      = ["MPlayer", "Gimp", "chrome-app-list", "Synapse"]
         myOtherFloats = ["alsamixer", "chrome-app-list", "cappl", "htop", "nmtui"]
-        webApps       = ["google-chrome-unstable", "firefox"] -- open on desktop 2
         imApps        = ["Skype", "Pidgin"]
 
 -- These layouts are stored in the Custom.Layouts module
