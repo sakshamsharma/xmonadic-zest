@@ -19,7 +19,7 @@ myStartup = do
   spawnOnce "conky -c ~/.conky/sideconky &"
   spawnOnce "watch -n 120 ~/.myscripts/batteryNotifier.sh &"
   spawnOnce "~/.myscripts/blueoff &"
-  spawn "feh --bg-fill ~/Wallpapers/hack.jpg &"
+  spawn "feh --bg-fill ~/Wallpapers/bin&"
   spawn "xrdb -merge ~/.Xresources &"
   spawn "pcmanfm --desktop &"
   spawnToWorkspace "thunderbird-bin&" "Mail"

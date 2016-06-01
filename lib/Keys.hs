@@ -41,10 +41,10 @@ myKeys conf@ XConfig {XMonad.modMask = modm} = M.fromList $
   , ((modm,               xK_s     ), scratchpadSpawnActionTerminal $ XMonad.terminal conf)
 
 -- | Media keys
-  , ((mod1Mask          , xK_3     ),  spawn "amixer -q set Master 5%-")
-  , ((mod1Mask          , xK_4     ),  spawn "amixer -q set Master 5%+")
-  , ((0,   xF86XK_AudioLowerVolume ),  spawn "amixer -q set Master 5%-")
-  , ((0,   xF86XK_AudioRaiseVolume ),  spawn "amixer -q set Master 5%+")
+  , ((mod1Mask          , xK_3     ),  spawn "amixer -c PCH -q set Master 5%-")
+  , ((mod1Mask          , xK_4     ),  spawn "amixer -c PCH -q set Master 5%+")
+  , ((0,   xF86XK_AudioLowerVolume ),  spawn "amixer -c PCH -q set Master 5%-")
+  , ((0,   xF86XK_AudioRaiseVolume ),  spawn "amixer -c PCH -q set Master 5%+")
   , ((0,   xF86XK_MonBrightnessUp  ),  spawn "xbacklight -steps 1 -time 0 -inc 8")
   , ((0,   xF86XK_MonBrightnessDown),  spawn "xbacklight -steps 1 -time 0 -dec 6")
 
