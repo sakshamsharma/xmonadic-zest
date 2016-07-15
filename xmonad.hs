@@ -10,16 +10,25 @@ import XMonad.Hooks.Place
 import XMonad.Hooks.EwmhDesktops        (ewmh)
 import System.Taffybar.Hooks.PagerHints (pagerHints)
 import System.Posix.Unistd
+import XMonad.Util.Run(spawnPipe)
 
 import Keys
 import Configs
 import Startup
 import Layouts
+import Lemonbar
 
 main = do
+  lemonbar <- spawnPipe myXmonadlemonbar
   hostname <- fmap nodeName getSystemID
   xmonad $ ewmh $ pagerHints $ defaultConfig {
-    manageHook = placeHook myPlacement <+> manageDocks <+> manageHook defaultConfig <+> myManagementHooks <+> composeAll myFullscreenHooks <+> manageScratchPad
+    manageHook = composeAll [
+        placeHook myPlacement
+        , manageDocks
+        , manageHook defaultConfig
+        , myManagementHooks
+        , manageScratchPad
+        , composeAll myFullscreenHooks ]
   , layoutHook = avoidStruts $ smartBorders myLayout
   , keys               = myKeys
   , workspaces         = myWorkspaces
@@ -28,4 +37,5 @@ main = do
   , focusedBorderColor = myFocusedBorderColor
   , modMask = mod4Mask
   , terminal = "urxvtc"
+  , logHook = myLogHook lemonbar
   }

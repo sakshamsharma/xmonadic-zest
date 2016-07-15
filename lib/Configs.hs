@@ -17,7 +17,7 @@ import           Layouts
 
 -- Global for browser
 myBrowser :: String
-myBrowser = "google-chrome-beta"
+myBrowser = "firefox"
 
 myMailClient :: String
 myMailClient = "thunderbird-bin"

@@ -22,7 +22,6 @@ myStartup = do
   spawn "feh --bg-fill ~/Wallpapers/wallpaper.jpg &"
   spawn "xrdb -merge ~/.Xresources &"
   spawn "pcmanfm --desktop &"
-  spawnToWorkspace (myMailClient ++ "&") "Mail"
 
 spawnToWorkspace :: String -> String -> X ()
 spawnToWorkspace program workspace = do
