@@ -12,15 +12,10 @@ import           XMonad.Util.Scratchpad
 import           Data.Maybe
 import           System.Exit
 import qualified Data.Map as M
+import qualified Data.List as L
 
 import           Layouts
-
--- Global for browser
-myBrowser :: String
-myBrowser = "firefox"
-
-myMailClient :: String
-myMailClient = "thunderbird-bin"
+import           MyVars()
 
 -- special command prompt
 commandPrompt :: XPConfig -> String -> M.Map String (X ()) -> X ()
@@ -37,6 +32,7 @@ commands = M.fromList
   ]
 
 -- shellprompt config
+fireSPConfig :: XPConfig
 fireSPConfig = def
   { bgColor             = colorFocusBG,
     fgColor             = colorNormalFG,
@@ -59,17 +55,23 @@ myFullscreenHooks = [ composeOne [ isFullscreen -?> doFullFloat  ], resource =? 
 myPlacement = withGaps (0,0,0,0) (smart (0.5,0.5))
 
 myManagementHooks = composeAll . concat $
-    [ [ className   =? c --> doFloat                    | c <- myFloats]
-    , [ title       =? t --> doFloat                    | t <- myOtherFloats]
-    , [ className   =? c --> doF (W.shift "1: Browser") | c <- [myBrowser]]
-    , [ className   =? c --> doF (W.shift "2: Emacs")   | c <- ["Emacs"]]
-    , [ className   =? c --> doF (W.shift "4: Music")   | c <- ["Rhythmbox"] ]
-    , [ className   =? c --> doF (W.shift "Mail"    )   | c <- ["Thunderbird"] ]
-    , [ className   =? c --> doF (W.shift "IM"    )     | c <- imApps ]
+    [ [ title       =? t                  -->
+        doFloat              | t <- myOtherFloats]
+    , [ fmap ( c `L.isInfixOf`) className -->
+               doShift (head myWorkspaces) | c <- myBrowsers]
+    , [ className   =? c                  -->
+               doShift (myWorkspaces !! 1) | c <- ["Emacs"]]
+    , [ className   =? c                  -->
+               doShift (myWorkspaces !! 3) | c <- myMusic]
+    , [ fmap ( c `L.isInfixOf`) className -->
+               doShift "IM"                | c <- imApps]
+    , [ className   =? c                  -->
+               doShift "Mail"              | c <- ["Thunderbird"] ]
     ]
-  where myFloats      = ["MPlayer", "Gimp", "chrome-app-list", "Synapse"]
-        myOtherFloats = ["alsamixer", "chrome-app-list", "cappl", "htop", "nmtui"]
+  where myOtherFloats = ["alsamixer", "chrome-app-list", "cappl", "htop", "nmtui"]
         imApps        = ["Skype", "Pidgin"]
+        myBrowsers    = ["Firefox", "Chrome"]
+        myMusic       = ["Rhythmbox", "Banshee"]
 
 -- These layouts are stored in the Custom.Layouts module
 myLayoutHook = im normal where

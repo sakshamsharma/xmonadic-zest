@@ -12,8 +12,6 @@ myStartup :: X ()
 myStartup = do
   ewmhDesktopsStartup
   setDefaultCursor xC_left_ptr
-  spawnOnce "taffybar&"
-  spawnToWorkspace (myBrowser ++ "&") "1: Browser"
   spawnOnce "nm-applet &"
   spawnOnce "pasystray &"
   spawnOnce "xscreensaver -no-splash &"

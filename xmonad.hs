@@ -5,19 +5,23 @@ import XMonad.Hooks.ManageDocks
 import XMonad.Layout.NoBorders(smartBorders)
 import XMonad.Util.NamedScratchpad
 import XMonad.ManageHook
+import XMonad.Util.EZConfig
 
 import XMonad.Hooks.Place
 import XMonad.Hooks.EwmhDesktops        (ewmh)
 import System.Taffybar.Hooks.PagerHints (pagerHints)
 import System.Posix.Unistd
-import XMonad.Util.Run(spawnPipe)
+import XMonad.Util.Run(spawnPipe, safeSpawn)
 import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.UrgencyHook
+import XMonad.Util.NamedWindows
+import qualified XMonad.StackSet as W
 
 import Keys
 import Configs
 import Startup
 import Layouts
-import Lemonbar
+import MyVars
 
 myConfig = ewmh $ pagerHints $ defaultConfig {
     manageHook = composeAll [
@@ -33,13 +37,16 @@ myConfig = ewmh $ pagerHints $ defaultConfig {
   , startupHook        = myStartup
   , normalBorderColor  = myNormalBorderColor
   , focusedBorderColor = myFocusedBorderColor
-  , modMask = mod4Mask
-  , terminal = "urxvtc"
-  }
+  , modMask = myModMask
+  , terminal = myTerminalApp
+  } `additionalKeysP` myAdditionalKeys
+    `additionalKeys`  myComplexKeys
 
 -- Key binding to toggle the gap for the bar.
 toggleStrutsKey XConfig {XMonad.modMask = modMask} = (modMask, xK_b)
 
+emptyPP = PP {}
+
 main = do
   hostname <- fmap nodeName getSystemID
-  xmonad =<< statusBar myXmonadlemonbar myLemonHook toggleStrutsKey myConfig
+  xmonad =<< statusBar "taffybar" emptyPP toggleStrutsKey myConfig
