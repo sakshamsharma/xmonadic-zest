@@ -14,6 +14,7 @@ import XMonad.Util.Scratchpad
 
 import qualified Data.Map        as M
 import qualified XMonad.StackSet as W
+import XMonad.Actions.SwapWorkspaces (swapWithCurrent)
 
 import Configs
 import MyVars
@@ -87,6 +88,12 @@ myKeys conf@ XConfig {XMonad.modMask = modm} = M.fromList $
       | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
       , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]
   ]
+  ++
+  -- if you're on workspace 1, hitting mod-ctrl-5 will swap workspaces 1 and 5
+  [
+    ((modm .|. controlMask, k), windows $ swapWithCurrent i)
+      | (i, k) <- zip myWorkspaces [xK_1 ..]
+  ]
 
 
 -- | Mouse bindings: default actions bound to mouse events
@@ -97,7 +104,4 @@ mouseBindings XConfig {XMonad.modMask = modm} = M.fromList
                                           >> windows W.shiftMaster)
     -- mod-button2 %! Raise the window to the top of the stack
     , ((modm, button2), windows . (W.shiftMaster .) . W.focusWindow)
-    -- mod-button3 %! Set the window to floating mode and resize by dragging
-    , ((modm, button3), \w -> focus w >> mouseResizeWindow w
-                                         >> windows W.shiftMaster)
     ]
