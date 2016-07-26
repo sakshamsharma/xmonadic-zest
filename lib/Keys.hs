@@ -42,10 +42,6 @@ myAdditionalKeys =
   , ("M-<Return>", spawn myTerminalApp)
   , ("M-s", scratchpadSpawnActionTerminal myTerminalApp)
   , ("M-x f", spawn myBrowserApp)
-  , ("M-KP_F1", spawn myBrowserApp)
-  , ("M-KP_F2", spawn "urxvt -e nmtui")
-  , ("M-KP_F3", spawn "pcmanfm")
-  , ("M-KP_F4", spawn "urxvt -e alsamixer")
   , ("M1-<Return>", spawn myEditorApp)
   , ("M-p", AL.launchApp def "evince")
   , ("M-S-l", spawn "xscreensaver-command -lock")
@@ -67,6 +63,10 @@ myComplexKeys =
   , ((mod4Mask, xK_l     ), sendMessage Expand) -- Expand master area
   , ((mod4Mask, xK_comma ), sendMessage (IncMasterN 1)) -- Increment master win cnt
   , ((mod4Mask, xK_period), sendMessage (IncMasterN (-1))) -- Decrement master count
+  , ((mod4Mask, xK_F1), spawn myBrowserApp)
+  , ((mod4Mask, xK_F2), spawn "urxvt -e nmtui")
+  , ((mod4Mask, xK_F3), spawn "pcmanfm")
+  , ((mod4Mask, xK_F4), spawn "urxvt -e alsamixer")
   ]
 
 
