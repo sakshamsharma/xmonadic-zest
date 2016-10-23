@@ -70,7 +70,7 @@ myManagementHooks = composeAll . concat $
     ]
   where myOtherFloats = ["alsamixer", "chrome-app-list", "cappl", "htop", "nmtui"]
         imApps        = ["Skype", "Pidgin"]
-        myBrowsers    = ["Firefox", "Chrome"]
+        myBrowsers    = ["Firefox", "Chrome", "google-chrome-beta"]
         myMusic       = ["Rhythmbox", "Banshee"]
 
 -- These layouts are stored in the Custom.Layouts module

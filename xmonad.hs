@@ -47,6 +47,4 @@ toggleStrutsKey XConfig {XMonad.modMask = modMask} = (modMask, xK_b)
 
 emptyPP = PP {}
 
-main = do
-  hostname <- fmap nodeName getSystemID
-  xmonad =<< statusBar "taffybar" emptyPP toggleStrutsKey myConfig
+main = xmonad myConfig
