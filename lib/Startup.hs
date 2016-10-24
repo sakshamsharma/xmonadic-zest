@@ -17,10 +17,11 @@ delayedStartOnce greedyKill time run =
       kills = "pkill " ++ execName
       ifkill = "if not pgrep " ++ execName ++ "; then " ++ run ++ "; fi;"
       ands = "; "
+      wrap str = "bash -c '" ++ str ++ "'"
   in if greedyKill then
-      spawn $ "(" ++ sleep ++ ands ++ kills ++ ands ++ run ++ ") &"
+      spawn $ wrap $ "(" ++ sleep ++ ands ++ kills ++ ands ++ run ++ ") &"
     else
-      spawn $ "(" ++ sleep ++ ands ++ ifkill ++ ") &"
+      spawn $ wrap $ "(" ++ sleep ++ ands ++ ifkill ++ ") &"
 
 myStartup :: X ()
 myStartup = do
