@@ -27,7 +27,7 @@ myStartup :: X ()
 myStartup = do
   ewmhDesktopsStartup
   setDefaultCursor xC_left_ptr
-  delayedStartOnce True 00 "taffybar"
+  -- delayedStartOnce True 00 "taffybar"
   delayedStartOnce True 10 "nm-applet"
   delayedStartOnce True 10 "pasystray"
   delayedStartOnce True 15 "thunderbird"

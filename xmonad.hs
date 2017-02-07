@@ -45,6 +45,6 @@ myConfig = ewmh $ pagerHints $ defaultConfig {
 -- Key binding to toggle the gap for the bar.
 toggleStrutsKey XConfig {XMonad.modMask = modMask} = (modMask, xK_b)
 
-emptyPP = PP {}
+emptyPP = defaultPP { ppOutput = \x-> return () }
 
-main = xmonad myConfig
+main = xmonad =<< statusBar "taffybar" emptyPP toggleStrutsKey myConfig

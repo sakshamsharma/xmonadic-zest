@@ -9,6 +9,7 @@ import qualified XMonad.Layout.Tabbed as Tab
 import           XMonad.Hooks.ManageDocks
 import           XMonad.Layout.Grid
 import           XMonad.Layout.LayoutModifier
+import           XMonad.Layout.ResizableTile
 import           XMonad.Layout.Reflect
 import           XMonad.Util.WindowProperties
 import           Control.Monad
@@ -17,13 +18,14 @@ import           Data.Ratio
 myLayout = stiled ||| tiled ||| Mirror tiled ||| Tab.simpleTabbed
  where
   -- default tiling algorithm partitions the screen into two panes
-  tiled = Tall nmaster1 delta ratio
+  tiled = ResizableTall nmaster1 delta ratio _slaves
 
-  stiled = spacing 5 $ Tall nmaster1 delta ratio
+  stiled = spacing 5 $ ResizableTall nmaster1 delta ratio _slaves
 
   nmaster1 = 1  -- The default number of windows in the master pane
   ratio = 1/2   -- Default proportion of screen occupied by master pane
   delta = 5/100 -- Percent of screen to increment by when resizing panes
+  _slaves = []
 
 
 -- | The following has been taken (and slightly modified) from an online source.

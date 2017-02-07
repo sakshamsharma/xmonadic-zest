@@ -23,8 +23,8 @@ myMailClient :: String
 myMailClient = "thunderbird-bin"
 
 volumeAction :: Action -> String
-volumeAction Increase = "amixer -q set Master 5%+"
-volumeAction Decrease = "amixer -q set Master 5%-"
+volumeAction Increase = "amixer --card 1 -q set PCM 5%+"
+volumeAction Decrease = "amixer --card 1 -q set PCM 5%-"
 
 brightnessAction :: Action -> String
 brightnessAction Increase = "xbacklight -steps 1 -time 1 -inc 8"

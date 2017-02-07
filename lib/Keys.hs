@@ -8,6 +8,7 @@ import XMonad.Hooks.Place
 import Graphics.X11.ExtraTypes.XF86
 import XMonad.Prompt.Window
 import XMonad.Actions.WindowBringer
+import XMonad.Layout.ResizableTile
 import XMonad.Prompt
 import XMonad.Prompt.AppLauncher as AL
 import XMonad.Util.Scratchpad
@@ -33,6 +34,8 @@ myAdditionalKeys =
   , ("M-<Up>", windows W.focusUp)
   , ("M-j", windows W.focusDown)
   , ("M-k", windows W.focusUp)
+  , ("M-i", sendMessage MirrorShrink)
+  , ("M-u", sendMessage MirrorExpand)
   , ("M-S-<Return>", windows W.swapMaster)
   , ("M-z", toggleWS)
   , ("M-t", withFocused $ windows . W.sink)
