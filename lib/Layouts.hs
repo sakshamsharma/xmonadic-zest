@@ -15,10 +15,10 @@ import           XMonad.Util.WindowProperties
 import           Control.Monad
 import           Data.Ratio
 
-myLayout = stiled ||| tiled ||| Mirror tiled ||| Tab.simpleTabbed
+myLayout = stiled ||| Tab.simpleTabbed ||| Mirror stiled
  where
   -- default tiling algorithm partitions the screen into two panes
-  tiled = ResizableTall nmaster1 delta ratio _slaves
+  {-tiled = ResizableTall nmaster1 delta ratio _slaves-}
 
   stiled = spacing 5 $ ResizableTall nmaster1 delta ratio _slaves
 

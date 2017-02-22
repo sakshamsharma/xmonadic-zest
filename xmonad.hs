@@ -9,7 +9,7 @@ import XMonad.Util.EZConfig
 
 import XMonad.Hooks.Place
 import XMonad.Hooks.EwmhDesktops        (ewmh)
-import System.Taffybar.Hooks.PagerHints (pagerHints)
+{-import System.Taffybar.Hooks.PagerHints (pagerHints)-}
 import System.Posix.Unistd
 import XMonad.Util.Run(spawnPipe, safeSpawn)
 import XMonad.Hooks.DynamicLog
@@ -23,7 +23,7 @@ import Startup
 import Layouts
 import MyVars
 
-myConfig = ewmh $ pagerHints $ defaultConfig {
+myConfig = ewmh $ defaultConfig {
     manageHook = composeAll [
         placeHook myPlacement
         , manageDocks

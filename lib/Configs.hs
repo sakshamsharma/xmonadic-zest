@@ -48,7 +48,7 @@ fireSPConfig = def
   }
 
 myWorkspaces :: [String]
-myWorkspaces    = ["1: Browser","2: Editor","3: Terminal","4: Music","5: Files","6: Video","7","8","9", "IM", "Mail"]
+myWorkspaces    = ["1","2","3","4","5","6","7","8","9", "IM", "Mail"]
 
 myFullscreenHooks = [ composeOne [ isFullscreen -?> doFullFloat  ], resource =? "synapse" --> doIgnore ]
 
@@ -71,7 +71,7 @@ myManagementHooks = composeAll . concat $
   where myOtherFloats = ["alsamixer", "chrome-app-list", "cappl", "htop", "nmtui"]
         imApps        = ["Skype", "Pidgin"]
         myBrowsers    = ["Firefox", "Chrome", "google-chrome-beta"]
-        myMusic       = ["Rhythmbox", "Banshee"]
+        myMusic       = ["Rhythmbox", "Banshee", "Spotify"]
 
 -- These layouts are stored in the Custom.Layouts module
 myLayoutHook = im normal where
@@ -87,8 +87,8 @@ manageScratchPad = scratchpadManageHook (W.RationalRect l t w h)
     l = 1 - w   -- distance from left edge, 0%
 
 -- color definitions
-myNormalBorderColor  = "#dddddd"
-myFocusedBorderColor = "#0000ff"
+myNormalBorderColor  = "#000000"
+myFocusedBorderColor = "#000000"
 
 -- colors for shellprompt
 colorNormalFG = "#B6B4B8"

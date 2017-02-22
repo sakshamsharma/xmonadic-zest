@@ -8,7 +8,7 @@ myModMask :: KeyMask
 myModMask = mod4Mask
 
 myAppLauncherApp :: String
-myAppLauncherApp = "rofi -show run -lines 6 -eh 1 -width 100 -padding 100 -opacity \"85\" -bw 0 -bc \"#2f343f\" -bg \"#2f343f\" -fg \"#f9f9f9\" -hlbg \"#2f343f\" -hlfg \"#9575cd\""
+myAppLauncherApp = "rofi -show run -lines 6 -eh 1 -width 100 -padding 100 -opacity \"85\" -bw 0 -color-normal \"#2f343f,#f9f9f9,#2f343f,#2f343f,#9575cd\" -color-window \"#2f343f,#2f343f,#2f343f\""
 
 myBrowserApp :: String
 myBrowserApp = "google-chrome-beta"
@@ -25,6 +25,10 @@ myMailClient = "thunderbird-bin"
 volumeAction :: Action -> String
 volumeAction Increase = "amixer --card 1 -q set PCM 5%+"
 volumeAction Decrease = "amixer --card 1 -q set PCM 5%-"
+
+volumeMasterAction :: Action -> String
+volumeMasterAction Increase = "amixer --card 1 -q set Master 5%+"
+volumeMasterAction Decrease = "amixer --card 1 -q set Master 5%-"
 
 brightnessAction :: Action -> String
 brightnessAction Increase = "xbacklight -steps 1 -time 1 -inc 8"

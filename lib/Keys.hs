@@ -37,7 +37,7 @@ myAdditionalKeys =
   , ("M-i", sendMessage MirrorShrink)
   , ("M-u", sendMessage MirrorExpand)
   , ("M-S-<Return>", windows W.swapMaster)
-  , ("M-z", toggleWS)
+  , ("M-z", toggleWS' ["NSP"])
   , ("M-t", withFocused $ windows . W.sink)
 
   -- Launchers
@@ -54,6 +54,8 @@ myAdditionalKeys =
   , ("<XF86AudioRaiseVolume>", spawn $ volumeAction Increase)
   , ("M1-3", spawn $ volumeAction Decrease)
   , ("M1-4", spawn $ volumeAction Increase)
+  , ("M1-5", spawn $ volumeMasterAction Decrease)
+  , ("M1-6", spawn $ volumeMasterAction Increase)
   , ("<XF86MonBrightnessDown>", spawn $ brightnessAction Decrease)
   , ("<XF86MonBrightnessUp>", spawn $ brightnessAction Increase)
   ]
