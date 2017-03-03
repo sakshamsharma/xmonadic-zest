@@ -15,11 +15,12 @@ delayedStartOnce greedyKill time run =
   let execName = takeWhile (/= ' ') run
       sleep = "sleep " ++ show time
       kills = "pkill " ++ execName
-      ifkill = "if not pgrep " ++ execName ++ "; then " ++ run ++ "; fi;"
+      howToRun = "bash -c \"" ++ run ++ "&\""
+      ifkill = "if not pgrep " ++ execName ++ "; then " ++ howToRun ++ "; fi;"
       ands = "; "
       wrap str = "bash -c '" ++ str ++ "'"
   in if greedyKill then
-      spawn $ wrap $ "(" ++ sleep ++ ands ++ kills ++ ands ++ run ++ ") &"
+      spawn $ wrap $ "(" ++ sleep ++ ands ++ kills ++ ands ++ howToRun ++ ") &"
     else
       spawn $ wrap $ "(" ++ sleep ++ ands ++ ifkill ++ ") &"
 
