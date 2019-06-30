@@ -48,9 +48,9 @@ fireSPConfig = def
   }
 
 myWorkspaces :: [String]
-myWorkspaces    = ["1","2","3","4","5","6","7","8","9", "IM", "Mail"]
+myWorkspaces    = ["1","2","3","4","5","6","7","8","9","0"]
 
-myFullscreenHooks = [ composeOne [ isFullscreen -?> doFullFloat  ], resource =? "synapse" --> doIgnore ]
+myFullscreenHooks = [ composeOne [ isFullscreen -?> doFullFloat  ] ]
 
 myPlacement = withGaps (0,0,0,0) (smart (0.5,0.5))
 
@@ -74,9 +74,7 @@ myManagementHooks = composeAll . concat $
         myMusic       = ["Rhythmbox", "Banshee", "Spotify"]
 
 -- These layouts are stored in the Custom.Layouts module
-myLayoutHook = im normal where
-    normal   = myLayout
-    im       = onWorkspace "im" imLayout
+myLayoutHook = myLayout
 
 manageScratchPad :: ManageHook
 manageScratchPad = scratchpadManageHook (W.RationalRect l t w h)

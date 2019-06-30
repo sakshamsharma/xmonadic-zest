@@ -9,9 +9,12 @@ import Graphics.X11.ExtraTypes.XF86
 import XMonad.Prompt.Window
 import XMonad.Actions.WindowBringer
 import XMonad.Layout.ResizableTile
-import XMonad.Prompt
-import XMonad.Prompt.AppLauncher as AL
 import XMonad.Util.Scratchpad
+
+import XMonad.Prompt
+import XMonad.Prompt.AppLauncher
+import XMonad.Prompt.Window
+import XMonad.Prompt.FuzzyMatch
 
 import qualified Data.Map        as M
 import qualified XMonad.StackSet as W
@@ -19,6 +22,7 @@ import XMonad.Actions.SwapWorkspaces (swapWithCurrent)
 
 import Configs
 import MyVars
+import MySsh
 
 myAdditionalKeys :: [([Char], X())]
 myAdditionalKeys =
@@ -43,11 +47,9 @@ myAdditionalKeys =
   -- Launchers
   , ("M-d", spawn myAppLauncherApp)
   , ("M-<Return>", spawn myTerminalApp)
-  , ("M-s", scratchpadSpawnActionTerminal myTerminalApp)
   , ("M-x f", spawn myBrowserApp)
   , ("M1-<Return>", spawn myEditorApp)
-  , ("M-p", AL.launchApp def "zathura")
-  , ("M-S-l", spawn "xscreensaver-command -lock")
+  , ("M-S-e", io (exitWith ExitSuccess))
 
   -- Media keys
   , ("<XF86AudioLowerVolume>", spawn $ volumeAction Decrease)
@@ -60,6 +62,10 @@ myAdditionalKeys =
   , ("<XF86MonBrightnessUp>", spawn $ brightnessAction Increase)
   ]
 
+myPromptConfig = def { searchPredicate = fuzzyMatch
+                     , sorter = fuzzySort
+                     }
+
 -- | Keys which don't exist in the simple default string mappings above
 myComplexKeys :: [((KeyMask, KeySym), X())]
 myComplexKeys =
@@ -70,8 +76,12 @@ myComplexKeys =
   , ((mod4Mask, xK_period), sendMessage (IncMasterN (-1))) -- Decrement master count
   , ((mod4Mask, xK_F1), spawn myBrowserApp)
   , ((mod4Mask, xK_F2), spawn "urxvt -e nmtui")
-  , ((mod4Mask, xK_F3), spawn "pcmanfm")
+  , ((mod4Mask, xK_F3), spawn "nautilus")
   , ((mod4Mask, xK_F4), spawn "urxvt -e alsamixer")
+  , ((mod1Mask .|. controlMask, xK_l), spawn "xscreensaver-command -lock")
+  , ((mod4Mask, xK_p), windowPrompt myPromptConfig Goto allWindows)
+  , ((mod4Mask, xK_s), sshPrompt myPromptConfig)
+  , ((mod4Mask, xK_Print), spawn "gnome-screenshot -a")
   ]
 
 
@@ -86,11 +96,11 @@ myKeys conf@ XConfig {XMonad.modMask = modm} = M.fromList $
       , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]
   ]
   ++
-  -- mod-{w,e,r} %! Switch to physical/Xinerama screens 1, 2, or 3
-  -- mod-shift-{w,e,r} %! Move client to screen 1, 2, or 3
+  -- mod-{e,q,w} %! Switch to physical/Xinerama screens 1, 2, or 3
+  -- mod-shift-{e,q,w} %! Move client to screen 1, 2, or 3
   [
     ((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
-      | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
+      | (key, sc) <- zip [xK_e, xK_q, xK_w] [0..]
       , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]
   ]
   ++
